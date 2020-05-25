@@ -1,0 +1,99 @@
+<%- include("partials/header") %>
+
+<div class="jumbotron p-3 p-md-5 text-white rounded bg-dark">
+  <h1 class="display-4">AEIPATHY</h1>
+  <hr class="my-4">
+  
+     <a class="btn btn-info" href="/blogs/new">New Post <span class="sr-only">(current)</span></a>
+      
+      <hr class="my-4">
+    
+        <a class="btn btn-info" href="/login">Login <span class="sr-only">(current)</span></a>
+      
+      <hr class="my-4">
+       
+        <a class="btn btn-info" href="/register">Sign Up</a>
+      
+  <hr class="my-4">
+  <p> "You don’t start out writing good stuff. You start out writing crap and thinking it’s good stuff, and then gradually you get better at it."
+</p>
+<div class="container">
+Find me online-
+<a style="color: white" href="https://www.instagram.com/stryveir/" target="blank"><i class="fab fa-instagram"></i></a>
+<a style="color: white" href="https://www.facebook.com/vidit.bhatnagar.710/" target="blank"><i class="fab fa-facebook-square"></i></a>
+<a style="color: white" href="https://twitter.com/bhatnagar_vidit" target="blank"><i class="fab fa-twitter"></i></a>
+<a style="color: white" href="https://www.linkedin.com/in/vidit-bhatnagar-24b107146/" target="blank"><i class="fab fa-linkedin-in"></i></a>
+<a style="color: white" href="https://accounts.snapchat.com/accounts/welcome" target="blank"><i class="fab fa-snapchat-ghost"></i></a>
+<a style="color: white" href="https://github.com/stryveir" target="blank"><i class="fab fa-github"></i></a>
+</div>
+</div>
+
+
+
+  <div class="row mb-2">
+    <div class="col-md-6">
+    <% blogs.forEach(function(blog){%>
+      <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+        <div class="col p-4 d-flex flex-column position-static">
+        <img src="<%= blog.image %>"  class="img-thumbnail">
+          <h3 class="mb-0"><strong><span><%=blog.title%></strong> by-<%= blog.author.username%></span></h3>
+          <div class="mb-1 text-muted"><%= blog.created.toDateString()%></div>
+          <p class="card-text mb-auto"><%- blog.body.substring(0,100)%></p> 
+          <a href="/blogs/<%= blog._id%>" class="stretched-link">Continue reading</a>
+        </div>
+        <div class="col-auto d-none d-lg-block">
+         
+        </div>
+      </div>
+      <%}); %>
+    </div>
+</div>
+
+
+  
+<nav aria-label="Page navigation">
+    <% if (pages && pages > 0) { %>
+    <ul class="pagination justify-content-center">
+        <% if (current == 1) { %>
+        <li class="page-item disabled"><a class="page-link">First</a></li>
+        <% } else { %>
+        <li><a class="page-link" href="/blogs">First</a></li>
+        <% } %>
+ 
+        <% if (current == 1) { %>
+        <li class="page-item disabled"><a class="page-link">«</a></li>
+        <% } else { %>
+        <li><a class="page-link" href="/blogs?page=<%= Number(current) - 1 %>">«</a></li>
+        <% } %>
+ 
+        <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
+        <% if (i !== 1) { %>
+        <li class="page-item disabled"><a class="page-link">...</a></li>
+        <% } %>
+        <% for (; i <= (Number(current) + 4) && i <= pages; i++) { %>
+        <% if (i == current) { %>
+        <li class="active"><a class="page-link"><%= i %></a></li>
+        <% } else { %>
+        <li><a class="page-link" href="/blogs?page=<%= i %>"><%= i %></a></li>
+        <% } %>
+        <% if (i == Number(current) + 4 && i < pages) { %>
+        <li class="page-item disabled"><a class="page-link">...</a></li>
+        <% } %>
+        <% } %>
+ 
+        <% if (current == pages) { %>
+        <li class="page-item disabled"><a class="page-link">»</a></li>
+        <% } else { %>
+        <li><a class="page-link" href="/blogs?page=<%= Number(current) + 1 %>">»</a></li>
+        <% } %>
+ 
+        <% if (current == pages) { %>
+        <li class="page-item disabled"><a class="page-link">Last</a></li>
+        <% } else { %>
+        <li><a class="page-link" href="/blogs?page=<%= pages %>">Last</a></li>
+        <% } %>
+    </ul>
+    <% } %>
+</nav>
+<%- include("partials/footer") %>
+
